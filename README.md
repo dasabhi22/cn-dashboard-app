@@ -20,7 +20,9 @@ A modern, interactive dashboard application built with React and Vite that allow
 
 ## Screenshots
 
-![Dashboard Overview](./public/dashboard-overview.png)  
+![Dashboard Overview1](./public/dashboard-overview1.png)  
+![Dashboard Overview2](./public/dashboard-overview2.png)  
+
 
 ## Project Structure
 
