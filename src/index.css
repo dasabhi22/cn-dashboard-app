@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* Now you can write normal styles */
+body {
+  @apply bg-gray-100;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+/* Apply to entire app */
+body, html {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Or if using Tailwind */
+:root {
+  --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
