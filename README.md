@@ -1,12 +1,75 @@
-# React + Vite
+# CN Dashboard App (https://dasabhi22.github.io/cn-dashboard-app/) Live preview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive dashboard application built with React and Vite that allows users to view, add, and manage widgets organized by categories.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dynamic Widget Management:** Add and remove widgets from different categories  
+- **Category Organization:** Widgets organized by customizable categories  
+- **Showing Search Functionality:** Showing filter widgets by search terms  
+- **Responsive Layout:** Optimized for various screen sizes  
+- **Interactive Components:** Including donut charts and risk meters  
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React**: UI library  
+- **Vite**: Build tool and development server  
+- **Zustand**: State management  
+- **TailwindCSS**: Utility-first CSS framework  
+- **React Icons & Heroicons**: Icon libraries  
+
+## Screenshots
+
+![Dashboard Overview](./public/dashboard-overview.png)  
+
+## Project Structure
+
+root/
+├── dist/
+├── node_modules/
+├── public/
+|   └── dashboard-overview.png
+├── src/
+│   ├── assets/
+│   │   └── logo.png
+│   ├── components/
+│   │   ├── widgets/
+│   │   │   ├── DonutChart.jsx
+│   │   │   ├── NoDataWidget.jsx
+│   │   │   ├── RiskMeter.jsx
+│   │   ├── AddWidgetModal.jsx
+│   │   ├── CategorySection.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── Header.jsx
+│   │   ├── WidgetCard.jsx
+│   ├── data/
+│   │   └── jsonData.jsx
+│   ├── store/
+│   │   └── dashboardStore.js
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+└── vite.config.js
+
+
+## Installation
+
+```bash
+# Clone repo
+git clone https://github.com/dasabhi22/cn-dashboard-app.git
+cd cn-dashboard-app
+
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+
+
