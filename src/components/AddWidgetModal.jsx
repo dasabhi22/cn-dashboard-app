@@ -16,8 +16,8 @@ const AddWidgetModal = ({ onClose }) => {
   // Destructuring states and actions from Zustand store
   const { categories, availableWidgets, toggleWidgetInCategory, addCustomWidget } = useDashboardStore();
 
-  // Current active tab/category for widget selection
-  const [activeTab, setActiveTab] = useState('cspm');
+  // Current active tab/category for widget selection - defaults to first category
+  const [activeTab, setActiveTab] = useState(categories[0]?.id || 'cspm');
 
   // Mode switch: 'select' for adding existing, 'create' for new widget
   const [mode, setMode] = useState('select');
@@ -54,6 +54,18 @@ const AddWidgetModal = ({ onClose }) => {
 
     addCustomWidget(selectedCategory, newWidget); // Save the widget to store
     onClose(); // Close modal after adding
+  };
+
+  // Helper function to get display name for category tabs
+  const getCategoryDisplayName = (categoryName) => {
+    const nameMap = {
+      'CSPM Executive Dashboard': 'CSPM',
+      'CWPP Dashboard': 'CWPP', 
+      'Registry Scan': 'Registry',
+      'Image Dashboard': 'Image',
+      'Ticket Dashboard': 'Ticket'
+    };
+    return nameMap[categoryName] || categoryName.split(' ')[0];
   };
 
   return (
@@ -102,33 +114,39 @@ const AddWidgetModal = ({ onClose }) => {
               
               {/* Category Tabs */}
               <div className="border-b mb-4">
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 overflow-x-auto">
                   {categories.map(category => (
                     <button
                       key={category.id}
-                      className={`pb-2 px-2 ${activeTab === category.id ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500'}`}
+                      className={`pb-2 px-2 whitespace-nowrap ${activeTab === category.id ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500'}`}
                       onClick={() => setActiveTab(category.id)}
                     >
-                      {category.name.split(' ')[0]}
+                      {getCategoryDisplayName(category.name)}
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* Widget Checkboxes */}
-              <div className="space-y-3">
-                {filteredWidgets.map((widget) => (
-                  <div key={widget.id} className="flex items-center p-3 border rounded-md">
-                    <input
-                      type="checkbox"
-                      id={widget.id}
-                      className="mr-3 h-5 w-5"
-                      checked={isWidgetInCategory(widget.id, widget.categoryId)}
-                      onChange={(e) => handleToggleWidget(widget.id, widget.categoryId, e.target.checked)}
-                    />
-                    <label htmlFor={widget.id} className="flex-grow">{widget.name}</label>
+              <div className="space-y-3 max-h-64 overflow-y-auto">
+                {filteredWidgets.length > 0 ? (
+                  filteredWidgets.map((widget) => (
+                    <div key={widget.id} className="flex items-center p-3 border rounded-md">
+                      <input
+                        type="checkbox"
+                        id={widget.id}
+                        className="mr-3 h-5 w-5"
+                        checked={isWidgetInCategory(widget.id, widget.categoryId)}
+                        onChange={(e) => handleToggleWidget(widget.id, widget.categoryId, e.target.checked)}
+                      />
+                      <label htmlFor={widget.id} className="flex-grow cursor-pointer">{widget.name}</label>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-gray-500 text-center py-4">
+                    No widgets available for this category
                   </div>
-                ))}
+                )}
               </div>
             </>
           ) : (
@@ -173,7 +191,7 @@ const AddWidgetModal = ({ onClose }) => {
                 >
                   {categories.map(category => (
                     <option key={category.id} value={category.id}>
-                      {category.name}
+                      {getCategoryDisplayName(category.name)}
                     </option>
                   ))}
                 </select>
@@ -202,7 +220,8 @@ const AddWidgetModal = ({ onClose }) => {
           ) : (
             <button
               onClick={handleCreateWidget} // Creates and saves widget
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              disabled={!customWidgetName.trim() || !selectedCategory}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               Create Widget
             </button>
